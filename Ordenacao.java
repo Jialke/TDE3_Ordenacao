@@ -25,6 +25,39 @@ public class Ordenacao {
         System.out.println("Trocas: " + trocas);
     }
 
+    static void bubbleSortOtimizado(int tamanho, int[] vetor) {
+        int temp = 0;
+        int iteracoes = 0;
+        int trocas = 0;
+
+        boolean trocou = false;
+
+        for (int i = 0; i < tamanho; i++) {
+            iteracoes++;
+
+            for (int j = 1; j < tamanho - i; j++) {
+                iteracoes++;
+                if (vetor[j-1] > vetor[j]) {
+                    // trocar elementos
+                    trocas++;
+
+                    temp = vetor[j-1];
+                    vetor[j-1] = vetor[j];
+                    vetor[j] = temp;
+
+                    trocou = true;
+                }
+            }
+            // se n tiver trocado, esta ordenado
+            if (!trocou) {
+                break;
+            }
+        }
+
+        System.out.println("Iterações: " + iteracoes);
+        System.out.println("Trocas: " + trocas);
+    }
+
     static void selectionSort(int tamanho, int[] vetor) {
         int trocas = 0;
         int iteracoes = 0;
@@ -239,6 +272,7 @@ public class Ordenacao {
         int[] vetor1_4 = {12, 18, 9, 25, 17, 31, 22, 27, 16, 13, 19, 23, 20, 30, 14, 11, 15, 24, 26, 28};
         int[] vetor1_5 = {12, 18, 9, 25, 17, 31, 22, 27, 16, 13, 19, 23, 20, 30, 14, 11, 15, 24, 26, 28};
         int[] vetor1_6 = {12, 18, 9, 25, 17, 31, 22, 27, 16, 13, 19, 23, 20, 30, 14, 11, 15, 24, 26, 28};
+        int[] vetor1_7 = {12, 18, 9, 25, 17, 31, 22, 27, 16, 13, 19, 23, 20, 30, 14, 11, 15, 24, 26, 28};
 
         int[] vetor2_1 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
         int[] vetor2_2 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
@@ -246,6 +280,7 @@ public class Ordenacao {
         int[] vetor2_4 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
         int[] vetor2_5 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
         int[] vetor2_6 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
+        int[] vetor2_7 = {5, 7, 9, 10, 12, 14, 15, 17, 19, 21, 22, 23, 24, 25, 27, 28, 29, 30, 31, 32};
 
         int[] vetor3_1 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
         int[] vetor3_2 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
@@ -253,6 +288,7 @@ public class Ordenacao {
         int[] vetor3_4 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
         int[] vetor3_5 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
         int[] vetor3_6 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
+        int[] vetor3_7 = {99, 85, 73, 60, 50, 40, 35, 30, 25, 20, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6};
 
 
         System.out.println("-------------------------------------------------------------------");
@@ -265,25 +301,29 @@ public class Ordenacao {
         bubbleSort(20, vetor1_1);
         imprimirVetor(20, vetor1_1);
 
-        System.out.println("\nSelectionSort:");
-        selectionSort(20, vetor1_2);
+        System.out.println("\nBubbleSort Otimizado:");
+        bubbleSortOtimizado(20, vetor1_2);
         imprimirVetor(20, vetor1_2);
 
-        System.out.println("\nCocktailSort: ");
-        cocktailSort(20, vetor1_3);
+        System.out.println("\nSelectionSort:");
+        selectionSort(20, vetor1_3);
         imprimirVetor(20, vetor1_3);
 
-        System.out.println("\nCombSort:");
-        combSort(20, vetor1_4);
+        System.out.println("\nCocktailSort: ");
+        cocktailSort(20, vetor1_4);
         imprimirVetor(20, vetor1_4);
 
-        System.out.println("\nGnomeSort:");
-        gnomeSort(20, vetor1_5);
+        System.out.println("\nCombSort:");
+        combSort(20, vetor1_5);
         imprimirVetor(20, vetor1_5);
 
-        System.out.println("\nBucketSort:");
-        bucketSort(20, vetor1_6);
+        System.out.println("\nGnomeSort:");
+        gnomeSort(20, vetor1_6);
         imprimirVetor(20, vetor1_6);
+
+        System.out.println("\nBucketSort:");
+        bucketSort(20, vetor1_7);
+        imprimirVetor(20, vetor1_7);
 
         System.out.println("\n-------------------------------------------------------------------");
         System.out.println("Vetor 2: Já ordenado");
@@ -293,25 +333,29 @@ public class Ordenacao {
         bubbleSort(20, vetor2_1);
         imprimirVetor(20, vetor2_1);
 
-        System.out.println("\nSelectionSort:");
-        selectionSort(20, vetor2_2);
+        System.out.println("\nBubbleSort Otimizado:");
+        bubbleSortOtimizado(20, vetor2_2);
         imprimirVetor(20, vetor2_2);
 
-        System.out.println("\nCocktailSort: ");
-        cocktailSort(20, vetor2_3);
+        System.out.println("\nSelectionSort:");
+        selectionSort(20, vetor2_3);
         imprimirVetor(20, vetor2_3);
 
-        System.out.println("\nCombSort:");
-        combSort(20, vetor2_4);
+        System.out.println("\nCocktailSort: ");
+        cocktailSort(20, vetor2_4);
         imprimirVetor(20, vetor2_4);
 
-        System.out.println("\nGnomeSort:");
-        gnomeSort(20, vetor2_5);
+        System.out.println("\nCombSort:");
+        combSort(20, vetor2_5);
         imprimirVetor(20, vetor2_5);
 
-        System.out.println("\nBucketSort:");
-        bucketSort(20, vetor2_6);
+        System.out.println("\nGnomeSort:");
+        gnomeSort(20, vetor2_6);
         imprimirVetor(20, vetor2_6);
+
+        System.out.println("\nBucketSort:");
+        bucketSort(20, vetor2_7);
+        imprimirVetor(20, vetor2_7);
 
         System.out.println("\n-------------------------------------------------------------------");
         System.out.println("Vetor 3: Ordenado de forma decrescente");
@@ -321,25 +365,29 @@ public class Ordenacao {
         bubbleSort(20, vetor3_1);
         imprimirVetor(20, vetor3_1);
 
-        System.out.println("\nSelectionSort:");
-        selectionSort(20, vetor3_2);
+        System.out.println("\nBubbleSort Otimizado:");
+        bubbleSortOtimizado(20, vetor3_2);
         imprimirVetor(20, vetor3_2);
 
-        System.out.println("\nCocktailSort: ");
-        cocktailSort(20, vetor3_3);
+        System.out.println("\nSelectionSort:");
+        selectionSort(20, vetor3_3);
         imprimirVetor(20, vetor3_3);
 
-        System.out.println("\nCombSort:");
-        combSort(20, vetor3_4);
+        System.out.println("\nCocktailSort: ");
+        cocktailSort(20, vetor3_4);
         imprimirVetor(20, vetor3_4);
 
-        System.out.println("\nGnomeSort:");
-        gnomeSort(20, vetor3_5);
+        System.out.println("\nCombSort:");
+        combSort(20, vetor3_5);
         imprimirVetor(20, vetor3_5);
 
-        System.out.println("\nBucketSort:");
-        bucketSort(20, vetor3_6);
+        System.out.println("\nGnomeSort:");
+        gnomeSort(20, vetor3_6);
         imprimirVetor(20, vetor3_6);
+
+        System.out.println("\nBucketSort:");
+        bucketSort(20, vetor3_7);
+        imprimirVetor(20, vetor3_7);
 
     }
 }
