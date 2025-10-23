@@ -30,10 +30,11 @@ public class Ordenacao {
         int iteracoes = 0;
         int trocas = 0;
 
-        boolean trocou = false;
+        boolean trocou;
 
         for (int i = 0; i < tamanho; i++) {
             iteracoes++;
+            trocou = false;
 
             for (int j = 1; j < tamanho - i; j++) {
                 iteracoes++;
