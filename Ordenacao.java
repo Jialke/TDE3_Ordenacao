@@ -213,48 +213,69 @@ public class Ordenacao {
     }
 
     static void bucketSort(int tamanho, int[] vetor) {
-        int trocas = 0;
-        int iteracoes = 0;
+        int[] trocasIteracoes = new int[2]; // [0] = iteracoes, [1] = trocas
+        bucketSortRecursivo(tamanho, vetor, tamanho, trocasIteracoes);
+        System.out.println("Iterações: " + trocasIteracoes[0]);
+        System.out.println("Trocas: " + trocasIteracoes[1]);
+    }
 
+    static void bucketSortRecursivo(int tamanho, int[] vetor, int numeroBaldes, int[] trocasIteracoes) {
         // calcular maximo e minimo
         int maximo = vetor[0];
         int minimo = vetor[0];
         for (int i = 0; i < tamanho; i++) {
-            iteracoes++;
+            trocasIteracoes[0]++;
 
             if (vetor[i] > maximo) maximo = vetor[i];
             if (vetor[i] < minimo) minimo = vetor[i];
         }
 
         // criar baldes
-        int tamanhoBalde = maximo - minimo + 1;
-        if (tamanhoBalde <= 0) tamanhoBalde = 1;
+        int[][] baldes = new int[numeroBaldes][tamanho];
+        int[] tamanhoBaldes = new int[numeroBaldes];
 
-        int[] balde = new int[tamanhoBalde];
+        double div = (double) (maximo - minimo + 1) / numeroBaldes;
 
-        // inserir dados nos baldes
         for (int i = 0; i < tamanho; i++) {
-            iteracoes++;
+            trocasIteracoes[0]++;
 
-            balde[vetor[i] - minimo]++;
+            int indiceBalde = (int) ((vetor[i] - minimo) / div);
+            if (indiceBalde >= numeroBaldes) indiceBalde = numeroBaldes - 1;
+
+            baldes[indiceBalde][tamanhoBaldes[indiceBalde]++] = vetor[i];
+            trocasIteracoes[1]++;
         }
 
-        // ordenação
+        // Ordenar cada balde distribuindo em sub-baldes
         int posicao = 0;
-        for (int i = 0; i < tamanhoBalde; i++) {
-            iteracoes++;
+        for (int i = 0; i < numeroBaldes; i++) {
+            trocasIteracoes[0]++;
 
-            for (int j = 0; j < balde[i]; j++) {
-                iteracoes++;
+            if (tamanhoBaldes[i] > 1) {
+                // Recursão apenas se o balde tiver mais de 1 elemento
+                int[] subBalde = new int[tamanhoBaldes[i]];
+                for (int j = 0; j < tamanhoBaldes[i]; j++) {
+                    trocasIteracoes[0]++;
 
-                vetor[posicao++] = i + minimo;
+                    subBalde[j] = baldes[i][j];
 
-                trocas++;
+                    trocasIteracoes[1]++;
+                }
+                bucketSortRecursivo(tamanhoBaldes[i], subBalde, numeroBaldes, trocasIteracoes);
+                // Copiar de volta
+                for (int j = 0; j < tamanhoBaldes[i]; j++) {
+                    trocasIteracoes[0]++;
+
+                    vetor[posicao++] = subBalde[j];
+
+                    trocasIteracoes[1]++;
+                }
+            } else if (tamanhoBaldes[i] == 1) {
+                // Apenas copiar se tiver 1 elemento
+                vetor[posicao++] = baldes[i][0];
+                trocasIteracoes[1]++;
             }
         }
-
-        System.out.println("Iterações: " + iteracoes);
-        System.out.println("Trocas: " + trocas);
     }
 
     static void imprimirVetor(int tamanho, int[] vetor) {
